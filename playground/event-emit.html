@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>{{num}}</p>
+      <app-header v-on:decrease="decreaseNumber"> </app-header>
+
+      <app-content v-on:increase="increaseNumber"> </app-content>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var appHeader = {
+        template: '<button v-on:click="deleteNumber">minus</button>',
+        methods: {
+          deleteNumber: function () {
+            this.$emit('decrease');
+          },
+        },
+      };
+
+      var appContent = {
+        template: '<button v-on:click="addNumber">plus</button>',
+        methods: {
+          addNumber: function () {
+            this.$emit('increase');
+          },
+        },
+      };
+
+      var vm = new Vue({
+        el: '#app',
+        components: {
+          'app-header': appHeader,
+          'app-content': appContent,
+        },
+        methods: {
+          decreaseNumber: function () {
+            this.num = this.num - 1;
+          },
+          increaseNumber: function () {
+            this.num = this.num + 1;
+          },
+        },
+        data: {
+          num: 10,
+        },
+      });
+      console.log(this)
+    </script>
+  </body>
+</html>
